@@ -1,27 +1,41 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
+    "target": "ES2017", // Compatibilidad con versiones modernas de ECMAScript
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true, // Permite archivos JS junto con TS
     "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
+    "strict": true, // Habilitar verificaciones estrictas de tipo
+    "noEmit": true, // No emite archivos de salida
+    "esModuleInterop": true, // Interoperabilidad entre módulos comunes y ESM
+    "module": "ESNext", // Utiliza módulos ESM
+    "moduleResolution": "node", // Resolución de módulos estándar de Node.js
+    "resolveJsonModule": true, // Permite la importación de archivos JSON
+    "isolatedModules": true, // Aísla los módulos (útil para Next.js)
+    "jsx": "preserve", // Configuración para JSX en Next.js
     "incremental": true,
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "prisma/seed.mjs"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
