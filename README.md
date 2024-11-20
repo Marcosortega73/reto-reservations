@@ -38,8 +38,8 @@ Sistema de Gestión de Reservas para Restaurantes desarrollado con **Next.js**, 
 ### 🛠️ Configuración Inicial
 1. **Clona el repositorio:**
    ```bash
-   git clone <REPO_URL>
-   cd reto-uppereat
+   git clone https://github.com/Marcosortega73/reto-reservations.git
+   cd reto-reservations
 
 2. **Configuración e instalación del proyecto:**
 
@@ -64,3 +64,4 @@ Sistema de Gestión de Reservas para Restaurantes desarrollado con **Next.js**, 
    npm run dev
 
    
+### 🧑‍💻 Desarrollado por: Marcos Ortega
