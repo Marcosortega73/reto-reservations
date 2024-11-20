@@ -1,0 +1,5 @@
+{
+    "exportall.config.relExclusion": [
+        "/src/components/chip/ChipStates.tsx"
+    ]
+}

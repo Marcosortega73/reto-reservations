@@ -1,20 +1,32 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+const  transformSlug = (slug) => {
+  return slug.toLowerCase().replace(/\s/g, "-");
+}
+
 
 async function main() {
-  const statuses = ["pendiente", "confirmada", "cancelada", "completada"];
-  
+  const statuses =[
+    { label: "Pendiente", color: "warning" }, 
+    { label: "Confirmada", color: "info" }, 
+    { label: "Cancelada", color: "error" }, 
+    { label: "Completada", color: "success" }, 
+  ];
+
   for (const status of statuses) {
-    // Crear estado solo si no existe
     const existingStatus = await prisma.reservationStatus.findUnique({
-      where: { slug: status },
+      where: { slug: transformSlug(status.label) },
     });
 
     if (!existingStatus) {
       await prisma.reservationStatus.create({
-        data: { name: status, slug: status.toLowerCase() }, // El slug lo puedes personalizar
+        data: {
+          name: status.label,
+          slug: transformSlug(status.label),
+          color: status.color,
+        }, 
       });
       console.log(`Estado "${status}" creado.`);
     } else {
@@ -24,6 +36,6 @@ async function main() {
 }
 
 main()
-  .then(() => console.log('Seed complete'))
+  .then(() => console.log("Seed complete"))
   .catch((e) => console.error(e))
   .finally(async () => await prisma.$disconnect());
