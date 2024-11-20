@@ -19,7 +19,15 @@ export default {
         success: "var(--success)",
         warning: "var(--warning)",
         info: "var(--info)",
-        
+
+        "primary-text": "var(--primary-text)",
+        "secondary-text": "var(--secondary-text)",
+        "accent-text": "var(--accent-text)",
+        "muted-text": "var(--muted-text)",
+        "error-text": "var(--error-text)",
+        "success-text": "var(--success-text)",
+        "warning-text": "var(--warning-text)",
+        "info-text": "var(--info-text)",
       },
     },
   },

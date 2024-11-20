@@ -4,7 +4,7 @@ import { ParamsRequest } from "@/interfaces";
 
 export async function GET(request: Request, { params }: ParamsRequest) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const reservation = await prisma.reservation.findUnique({
       where: {
         id: Number(id),
@@ -46,7 +46,7 @@ export async function DELETE(request: Request, { params }: ParamsRequest) {
         id: Number(id),
       },
     });
-    return NextResponse.json({ message: "Deleting reservation, World!" });
+    return NextResponse.json({ message: "Deleting reservation" });
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
@@ -59,9 +59,18 @@ export async function DELETE(request: Request, { params }: ParamsRequest) {
 
 export async function PUT(request: Request, { params }: ParamsRequest) {
   try {
-    const { id } = params;
-    const { clientName, numberOfGuests, reservationDate, statusName } =
+    const { id } = await params;
+    const { clientName, numberOfGuests, reservationDate, statusName,reservationTime } =
       await request.json();
+
+    const reservationDateTime = new Date(
+      `${reservationDate}T${reservationTime}:00` // Usa T para separar la fecha y la hora
+    );
+
+    const localReservationDateTime = new Date(
+      reservationDateTime.getTime() -
+        reservationDateTime.getTimezoneOffset() * 60000
+    );
 
     const status = await prisma.reservationStatus.findFirstOrThrow({
       where: {
@@ -88,9 +97,9 @@ export async function PUT(request: Request, { params }: ParamsRequest) {
       },
       data: {
         clientName,
-        numberOfGuests,
-        reservationDate,
-        statusId: status.id,
+        numberOfGuests: Number(numberOfGuests),
+        reservationDate: localReservationDateTime,
+        statusId: status?.id ?? 1,
       },
     });
 

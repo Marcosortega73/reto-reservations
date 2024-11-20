@@ -17,6 +17,7 @@ model ReservationStatus {
   id        Int      @id @default(autoincrement())
   name      String
   slug      String  @unique 
+  color     String
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -3,10 +3,12 @@ import { prisma } from "@/libs/prisma";
 export async function GET() {
   try {
     const reservations = await prisma.reservation.findMany({
-        include: {
-            status: true,
-            
-        },
+      include: {
+        status: true,
+      },
+      orderBy: {
+        reservationDate: "asc",
+      },
     });
     return NextResponse.json(reservations);
   } catch (error) {
@@ -21,20 +23,33 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { clientName, numberOfGuests, reservationDate, statusName } =
-      await request.json();
+    const body = await request.json();
+
+    const { clientName, numberOfGuests, reservationDate, reservationTime } = body;
+
+    if (!clientName || !numberOfGuests || !reservationDate || !reservationTime) {
+      return NextResponse.json(
+        { message: "Missing required fields" },
+        { status: 400 }
+      );
+    }
 
     const status = await prisma.reservationStatus.findFirstOrThrow({
-      where: {
-        slug: statusName,
-      },
+      where: { slug: "pendiente" },
     });
+
+    const reservationDateTime = new Date(
+      `${reservationDate}T${reservationTime}:00` 
+    );    
+
+    const localReservationDateTime = new Date(reservationDateTime.getTime() - reservationDateTime.getTimezoneOffset() * 60000);
+
 
     const newReservation = await prisma.reservation.create({
       data: {
         clientName,
-        numberOfGuests,
-        reservationDate,
+        numberOfGuests: Number(numberOfGuests),
+        reservationDate: localReservationDateTime,
         statusId: status.id,
       },
     });
@@ -53,3 +68,4 @@ export async function POST(request: Request) {
     }
   }
 }
+

@@ -14,4 +14,93 @@
   --success: #0a837f;
   --warning: #febf97;
   --info: #575a65;
+
+  --primary-text: #000000; 
+  --secondary-text: #ffffff; 
+  --accent-text: #000000; 
+  --muted-text: #ffffff; 
+  --error-text: #ffffff; 
+  --success-text: #ffffff;
+  --warning-text: #000000; 
+  --info-text: #ffffff; 
 }
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInleft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+
+@keyframes blink {
+  0%, 50%, 100% {
+    border-color: transparent;
+  }
+  25%, 75% {
+    border-color: black;
+  }
+}
+
+.page-enter {
+  animation: slideIn 0.5s ease-in-out forwards;
+}
+.page-enter-left {
+  animation: slideInleft 0.5s ease-in-out forwards;
+}
+
+.page-exit {
+  animation: slideOut 0.5s ease-in-out forwards;
+}
+.typing-effect {
+  display: inline-block;
+  overflow: hidden;
+  width: 0;
+  white-space: nowrap;
+  border-right: 4px solid;
+  animation: typing 2s steps(30) infinite, blink 0.5s step-end infinite;
+}
+.typing-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap; 
+}
+
