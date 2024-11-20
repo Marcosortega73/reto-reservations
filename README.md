@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏆 Reto UpperEat
 
-## Getting Started
+Sistema de Gestión de Reservas para Restaurantes desarrollado con **Next.js**, **Prisma** y **Tailwind CSS**.
 
-First, run the development server:
+## 🚀 Características Principales
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 📝 Crear Reserva
+- Formulario para registrar reservas.
+- Campos requeridos: 
+  - **Nombre del cliente**.
+  - **Número de personas**.
+  - **Fecha** y **hora** de la reserva.
+- Las reservas se crean con el estado inicial de `pendiente`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 📋 Listado de Reservas
+- Visualización de todas las reservas ordenadas por **fecha** y **hora**.
+- Cada reserva muestra información relevante como cliente, número de personas, fecha, hora y estado.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### ✏️ Modificar Estado de Reserva
+- Posibilidad de cambiar el estado de la reserva.
+- Estados disponibles:
+  - `pendiente`
+  - `confirmada`
+  - `cancelada`
+  - `completada`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🗑️ Eliminar Reserva
+- Botón para eliminar reservas directamente desde la lista.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Instalación y Configuración
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🛠️ Requisitos
+- **Node.js** `>= 16.8.0`
+- **MySQL** como base de datos.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🛠️ Configuración Inicial
+1. **Clona el repositorio:**
+   ```bash
+   git clone <REPO_URL>
+   cd reto-uppereat
 
-## Deploy on Vercel
+2. **Configuración e instalación del proyecto:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   Ejecuta los siguientes comandos en el terminal para configurar y preparar el entorno del proyecto:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   # Instala las dependencias del proyecto
+   npm install
+
+   # Configura las variables de entorno (Backend)
+   echo "DATABASE_URL=mysql://<usuario>:<password>@<host>:<puerto>/<nombre_base_datos>" > .env
+
+   # Configura las variables de entorno para NEXT_PUBLIC_API_URL=http://localhost:3000/api
+
+   # Aplica las migraciones de Prisma
+   npx prisma migrate dev
+
+   # Carga los estados iniciales con el seed
+   npm run seed
+
+   # Inicia el servidor de desarrollo
+   npm run dev
+
+   
